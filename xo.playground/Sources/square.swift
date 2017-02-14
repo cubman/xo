@@ -1,7 +1,7 @@
 import Foundation
 
 
-public class square {
+public struct square {
     var kind : kindOfMark
     
     public init() {
@@ -12,15 +12,7 @@ public class square {
         kind = k
     }
     
-    public func print_type() {
-        switch kind {
-        case .X:
-            print("x")
-        case .O:
-            print("o")
-        default:
-            print("_")
-        }
-        
+    public mutating func setValue(_ kd: kindOfMark) {
+        kind = kd
     }
 }

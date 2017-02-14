@@ -8,6 +8,7 @@ var sq = square(kindOfMark.X)
 
 var t = board()
 
-var result = t.getSquareByInd(2, 2)
+t[1,1] = kindOfMark.X
+
 t.print_table()
 

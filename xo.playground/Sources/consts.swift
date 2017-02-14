@@ -12,3 +12,14 @@ public enum kindOfMark {
     case O
     case empty
 }
+
+public func print_type(_ k: kindOfMark) {
+    switch k {
+    case .X:
+        print("x", terminator:"")
+    case .O:
+        print("o", terminator:"")
+    default:
+        print("_", terminator:"")
+}
+}

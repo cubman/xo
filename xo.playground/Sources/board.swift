@@ -1,26 +1,27 @@
 import Foundation
 
 public class board {
-     var br: [square] // доска
-
+    // доска
+    var br: [square]
+    
     // инициализация
     public init() {
         br = [square](repeating: square(), count: board_size * board_size)
     }
     
-    // получить клетку по индексу x, y
-    public func getSquareByInd(_ x: Int, _ y: Int) -> square {
-        return br[x * board_size + y]
+    public subscript(_ x: Int, _ y: Int) -> kindOfMark {
+        get{ return br[x * board_size + y].kind }
+        set{ br[x * board_size + y].setValue(newValue) }
     }
     
     // распечатать клетки
     public func print_table() {
         for i in 0...board_size-1 {
             for j in 0...board_size-1 {
-                self.getSquareByInd(i, j).print_type()
+                print_type(self[i, j])
             }
-            
-            print("\n")
+            print("")
         }
+        print("=========\n")
     }
 }
