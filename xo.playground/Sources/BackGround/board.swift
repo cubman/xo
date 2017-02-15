@@ -4,9 +4,17 @@ public class board {
     // доска
     var br: [square]
     
+    // свободный клетки
+    public var freeSquare: [Int]
+    
     // инициализация
     public init() {
         br = [square](repeating: square(), count: board_size * board_size)
+        freeSquare = [Int]()
+        
+        for i in 0...(board_size * board_size - 1) {
+            self.freeSquare.append(i)
+        }
     }
     
     public subscript(_ x: Int, _ y: Int) -> kindOfMark {
