@@ -20,6 +20,6 @@ public func print_type(_ k: kindOfMark) {
     case .O:
         print("o", terminator:" ")
     default:
-        print("_", terminator:" ")
+        print("-", terminator:" ")
 }
 }
