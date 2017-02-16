@@ -2,7 +2,7 @@
 
 import UIKit
 
-var str = "Hello, playground"
+/*var str = "Hello, playground"
 
 var sq = square(kindOfMark.X)
 
@@ -17,18 +17,27 @@ var p2 = playerXO(kindOfMark.O)
 var r = randomGeneratorXO()
 
 t.freeSquare
-p1.makeStep(t, r)
+var e = p1.makeStep(t, r)
+p1.checkResult(t, p1.makeStep(t, r))
+
 p2.makeStep(t, r)
 p1.makeStep(t, r)
 p2.makeStep(t, r)
 t.freeSquare
 p1.makeStep(t, r)
 p2.makeStep(t, r)
-
+p1.checkResult(t, p1.makeStep(t, r))
+p1.makeStep(t, r)
+p2.makeStep(t, r)
+p1.makeStep(t, r)
+p2.makeStep(t, r)
+p1.checkResult(t, p1.makeStep(t, r))
 
 t.freeSquare
 t.print_table()
-//var w : randomGeneratorXO()
-
+//var w : randomGeneratorXO()*/
+var t = gameLogic()
+t.startPlaying()
+t.makeTurns()
 
 

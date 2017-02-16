@@ -1,7 +1,7 @@
 import Foundation
 
 // размер доски
-let board_size = 5
+let board_size = 3
 
 // необходимо собрать
 let need_to_collect = 3
@@ -12,14 +12,18 @@ public enum kindOfMark {
     case O
     case empty
 }
-
-public func print_type(_ k: kindOfMark) {
+public func getType(_ k : kindOfMark) -> String {
     switch k {
     case .X:
-        print("x", terminator:" ")
+        return "x"
     case .O:
-        print("o", terminator:" ")
+        return "o"
     default:
-        print("-", terminator:" ")
+        return "-"
+    }
+
 }
+
+public func print_type(_ k: kindOfMark) {
+        print(getType(k), terminator:" ")
 }

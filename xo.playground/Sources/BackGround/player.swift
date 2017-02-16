@@ -3,9 +3,8 @@ import Foundation
 public protocol player {
     var name: String { get }
     var kind: kindOfMark { get }
-    func makeStep(_ b: board,_ rg: RandomNumberGenerator) -> (x: Int, y: Int)
-    
-   // func checkIsWin(_ b: board, _ p: (_ x: Int, _ y: Int)) -> bool
+    func makeStep(_ b: board,_ rg: RandomNumberGenerator) -> (p1: Int, p2: Int)
+    func checkResult(_ brd: board, _ p : (p1: Int, p2:Int)) -> Bool
 }
 
 public enum playerAction {
@@ -22,7 +21,7 @@ public class playerXO: player {
         self.name = kd == kindOfMark.X ? "x" : kd == kindOfMark.O ? "o" : "-"
     }
     
-    public func makeStep(_ b: board,_ rg: RandomNumberGenerator) -> (x:Int, y:Int) {
+    public func makeStep(_ b: board,_ rg: RandomNumberGenerator) -> (p1:Int, p2:Int) {
         let t = rg.random(maxValue: b.freeSquare.count)
     
         let res = (b.freeSquare[t] / board_size, b.freeSquare[t] % board_size)
@@ -36,44 +35,47 @@ public class playerXO: player {
     public func checkResult(_ brd: board, _ p : (p1: Int, p2:Int)) -> Bool {
 
         var cnt: Int = 0
-        
+        var k: Int = 0
+        var add: Int = 0
+
         //=================
         // horisontal
         //=================
-        for i in p.p1...board_size - 1 {
-            if (brd[i, p.p2] == kind) {
-                cnt += 1
-            }
+        k = p.p1
+        while  k < board_size && brd[k, p.p2] == kind {
+            cnt += 1
+            k += 1
         }
         
-        for i in (p.p1 - 1)...0 {
-            if (brd[i, p.p2] == kind) {
-                cnt += 1
-            }
+        k = p.p1 - 1
+        while k >= 0 && brd[k, p.p2] == kind {
+            cnt += 1
+            k -= 1
         }
         
-        if (cnt <= need_to_collect) {
+        if (cnt >= need_to_collect) {
             return true
         }
         
+       
         //=================
         // vericle
         //=================
         cnt = 0
         
-        for i in p.p2...board_size - 1 {
-            if (brd[p.p1, i] == kind) {
-                cnt += 1
-            }
+        k = p.p2
+        while k < board_size && brd[p.p1, k] == kind {
+            cnt += 1
+            k += 1
         }
         
-        for i in (p.p2 - 1)...0 {
-            if (brd[p.p1, i] == kind) {
-                cnt += 1
-            }
+        k = p.p2 - 1
+        while k >= 0 && brd[p.p1, k] == kind {
+            cnt += 1
+            k -= 1
         }
         
-        if (cnt <= need_to_collect) {
+        if (cnt >= need_to_collect) {
             return true
         }
         
@@ -81,45 +83,47 @@ public class playerXO: player {
         // main diagonal
         //=================
         cnt = 0
-        var add: Int = 0
-        
-        for i in max(p.p1, p.p2)...board_size - 1 {
-            if (brd[p.p1 + add, p.p2 + add] == kind) {
-                cnt += 1
-                add += 1
-            }
-        }
-        add = 0
-        for i in (min(p.p1, p.p2) - 1)...0 {
-            if (brd[p.p1 + add, p.p2 + add] == kind) {
-                cnt += 1
-            }
+        k = max(p.p1, p.p2)
+        while k < board_size && brd[p.p1 + add, p.p2 + add] == kind {
+            cnt += 1
+            add += 1
+            k += 1
         }
         
-        if (cnt <= need_to_collect) {
+        add = 1
+        k = min(p.p1, p.p2) - 1
+        
+        while k >= 0 && brd[p.p1 - add, p.p2 - add] == kind {
+            cnt += 1
+            add += 1
+            k -= 1
+        }
+        
+        if (cnt >= need_to_collect) {
             return true
         }
         
         //=================
-        // adverse diagonal ( need to realise)
+        // adverse diagonal
         //=================
         cnt = 0
         add = 0
-        
-        for i in max(p.p1, p.p2)...board_size - 1 {
-            if (brd[p.p1 + add, p.p2 + add] == kind) {
-                cnt += 1
-                add += 1
-            }
-        }
-        add = 0
-        for i in (min(p.p1, p.p2) - 1)...0 {
-            if (brd[p.p1 + add, p.p2 + add] == kind) {
-                cnt += 1
-            }
+        k = max(p.p1, p.p2)
+        while k < board_size && brd[p.p1 + add, p.p2 - add] == kind {
+            cnt += 1
+            add += 1
+            k += 1
         }
         
-        if (cnt <= need_to_collect) {
+        add = 1
+        k = min(p.p1, p.p2) - 1
+        while k >= 0 && brd[p.p1 - add, p.p2 + add] == kind {
+            cnt += 1
+            add += 1
+            k -= 1
+        }
+        
+        if (cnt >= need_to_collect) {
             return true
         }
         
