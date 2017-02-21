@@ -1,6 +1,6 @@
 import Foundation
 
-
+// клетка поля
 public struct square {
     public var kind : kindOfMark
     
